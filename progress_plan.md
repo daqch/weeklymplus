@@ -1,4 +1,4 @@
-##Plan
+##  Plan
 
 * This will be a react application that will use an http fetch request to the Raider.io API in order to obtain the highest keystone the character obtained from the input fields has completed over the week. The API facilitates this request as it has a *mythic_plus_weekly_highest_level_runs* field in the character request fetch URL.
 
