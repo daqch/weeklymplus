@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Content from "./components/Content";
 
 function App() {
   const [Inputs, changeInputs] = useState({ name: "", realm: "" });
   const [response, updateResponse] = useState(null);
-
-  useEffect(() => {
-    if (response != null) {
-      console.log(response);
-    }
-  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +20,10 @@ function App() {
       `https://raider.io/api/v1/characters/profile?region=us&realm=${Inputs.realm}&name=${Inputs.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
       .then((response) => response.json())
-      .then((data) => updateResponse(data));
+      .then((data) => updateResponse(data))
+      .catch((error) => {
+        console.error("character was not found");
+      });
   };
 
   return (
@@ -51,6 +49,7 @@ function App() {
             Retrieve
           </button>
         </form>
+        <Content response={response}></Content>
       </header>
     </div>
   );
