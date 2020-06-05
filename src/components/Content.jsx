@@ -6,6 +6,7 @@ function Content({ response }) {
       <div>
         <img src={response["thumbnail_url"]}></img>
         <p>{response["name"]}</p>
+        response["mythic_plus_weekly_highest_level_runs"]
         <p>
           Highest Weekly Mythic Plus{" "}
           {response["mythic_plus_weekly_highest_level_runs"][0]["dungeon"]}
