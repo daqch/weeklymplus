@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Content from "./components/Content";
+import Navbar from "./components/Navbar";
+import chest from "./assets/finalchest.pgn.png";
 
 function App() {
   const [Inputs, changeInputs] = useState({ name: "", realm: "" });
@@ -22,14 +24,20 @@ function App() {
       .then((response) => response.json())
       .then((data) => updateResponse(data))
       .catch((error) => {
-        console.error("character was not found");
+        console.log(response);
       });
   };
 
   return (
     <div className="App">
+      <Navbar></Navbar>
       <header className="App-header">
-        <h1>Check if you have completed your goals for the week!</h1>
+        <div className="title">
+          <h4>
+            Check if you have completed your goals for the week!
+            <img src={chest}></img>
+          </h4>
+        </div>
         <form onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
