@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Content from "./components/Content";
 import Navbar from "./components/Navbar";
@@ -21,10 +21,16 @@ function App() {
     fetch(
       `https://raider.io/api/v1/characters/profile?region=us&realm=${Inputs.realm}&name=${Inputs.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
-      .then((response) => response.json())
-      .then((data) => updateResponse(data))
-      .catch((error) => {
-        console.log(response);
+      .then((response) => {
+        if (response.ok) return response.json();
+        else {
+          updateResponse(null);
+          alert("there was an error retrieving this character!");
+        }
+      })
+      .then((json) => {
+        console.log(json);
+        updateResponse(json);
       });
   };
 

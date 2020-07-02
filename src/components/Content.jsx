@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
 
 function Content({ response }) {
-  const content = response ? (
-    response["statusCode"] !== 400 ? (
-      <div>
+  return response ? (
+    response["mythic_plus_weekly_highest_level_runs"].length == 0 ? (
+      <p>No mythics completed</p>
+    ) : (
+      <div className={"content"}>
         <img src={response["thumbnail_url"]}></img>
-        <p>{response["name"]}</p>
-        response["mythic_plus_weekly_highest_level_runs"]
         <p>
-          Highest Weekly Mythic Plus{" "}
-          {response["mythic_plus_weekly_highest_level_runs"][0]["dungeon"]}
+          Highest mythic plus completed
           {" " +
             response["mythic_plus_weekly_highest_level_runs"][0][
               "mythic_level"
             ]}
         </p>
       </div>
-    ) : (
-      <p>Could not find character</p>
     )
   ) : (
-    <p></p>
+    <p>No sucessful retrieval</p>
   );
-
-  return <div>{content}</div>;
 }
 
 export default Content;
