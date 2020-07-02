@@ -9,7 +9,7 @@
 
 .App-header {
   background-color: rgba(0, 0, 0, 0.9);
-  min-height: 96.2vh;
+  min-height: 97.4vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,9 +39,7 @@
 
 .nav {
   background-color: #282c34;
-  color: white;
-  border-bottom-style: solid;
-  border-bottom-color: white;
+  text-align: right;
 }
 
 hr {
@@ -65,4 +63,8 @@ img {
   width: 100px;
   height: 100px;
   margin-left: 20px;
+}
+
+.content {
+  display: inline-block;
 }
