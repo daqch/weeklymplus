@@ -7,3 +7,5 @@ This react app allows to confirm if a character has completed its mythic keyston
 ####  Login Implementation
 
 Will implement login and user registration using PERN stack and JWT
+
+server repo : https://github.com/daqch/weeklymplus-server
