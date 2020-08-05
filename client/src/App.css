@@ -18,6 +18,16 @@
   color: white;
 }
 
+.dashboard {
+  background-color: rgba(0, 0, 0, 0.9);
+  min-height: 97.4vh;
+  color: white;
+}
+
+.dashboard content {
+  margin: 20px;
+}
+
 .App-link {
   color: #61dafb;
 }

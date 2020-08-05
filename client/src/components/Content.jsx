@@ -17,7 +17,7 @@ function Content({ response }) {
       </div>
     )
   ) : (
-    <p>No sucessful retrieval</p>
+    <p></p>
   );
 }
 
