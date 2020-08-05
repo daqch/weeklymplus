@@ -10,22 +10,7 @@ const Dashboard = ({ setAuth }) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const submit = (e) => {
-    e.preventDefault();
-    fetch(
-      `https://raider.io/api/v1/characters/profile?region=us&realm=${Inputs.realm}&name=${Inputs.name}&fields=mythic_plus_weekly_highest_level_runs`
-    )
-      .then((response) => {
-        if (response.ok) return response.json();
-        else {
-          updateResponse(null);
-          alert("there was an error retrieving this character!");
-        }
-      })
-      .then((json) => {
-        console.log(json);
-      });
-  };
+  const submit = (e) => {};
   return (
     <Fragment>
       <div className="nav">
