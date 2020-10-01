@@ -19,7 +19,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(
-      `https://raider.io/api/v1/characters/profile?region=us&realm=${Inputs.realm}&name=${Inputs.name}&fields=mythic_plus_weekly_highest_level_runs`
+      `http://raider.io/api/v1/characters/profile?region=us&realm=${Inputs.realm}&name=${Inputs.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
       .then((response) => {
         if (response.ok) return response.json();
