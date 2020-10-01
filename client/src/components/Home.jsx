@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
 import Content from "./Content";
 import Navbar from "./Navbar";
-import chest from "../assets/finalchest.pgn.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [Inputs, changeInputs] = useState({ name: "", realm: "" });
@@ -24,7 +25,15 @@ const Home = () => {
         if (response.ok) return response.json();
         else {
           updateResponse(null);
-          alert("there was an error retrieving this character!");
+          toast.error("Could not retrieve character", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       })
       .then((json) => {
@@ -39,29 +48,30 @@ const Home = () => {
       <div className="App">
         <header className="App-header">
           <div className="title">
-            <h4>
-              Check if you have completed your Mythic+ of the week!
-              <img src={chest}></img>
-            </h4>
+            <h4>Make a quick query!</h4>
           </div>
           <form onSubmit={handleSubmit}>
-            <input
-              onChange={handleChange}
-              placeholder="Character Name"
-              type="text"
-              name="name"
-              className="input"
-            ></input>
-            <input
-              onChange={handleChange}
-              placeholder="Realm Name"
-              type="text"
-              name="realm"
-              className="input"
-            ></input>
-            <button type="submit" className="btn btn-md btn-dark">
-              Retrieve
-            </button>
+            <div className="form-group">
+              <input
+                onChange={handleChange}
+                placeholder="Character Name"
+                type="text"
+                name="name"
+                className="form-control my-3"
+              ></input>
+            </div>
+            <div className="form-group">
+              <input
+                onChange={handleChange}
+                placeholder="Realm Name"
+                type="text"
+                name="realm"
+                className="form-control my-3"
+              ></input>
+              <button type="submit" className="btn btn-md btn-dark">
+                Retrieve
+              </button>
+            </div>
           </form>
           <Content response={response}></Content>
         </header>

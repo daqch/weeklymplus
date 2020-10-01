@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 function Content({ response }) {
   return response ? (
-    response["mythic_plus_weekly_highest_level_runs"].length == 0 ? (
+    response["mythic_plus_weekly_highest_level_runs"].length === 0 ? (
       <p>No mythics completed</p>
     ) : (
       <div className={"content"}>
-        <img src={response["thumbnail_url"]}></img>
+        <img alt="avatar" src={response["thumbnail_url"]}></img>
         <p>
           Highest mythic plus completed
           {" " +
