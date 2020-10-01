@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import Navbar from "./Navbar";
+import { toast } from "react-toastify";
 const Register = ({ setAuth }) => {
   const [inputs, setInputs] = useState({
     name: "",
@@ -22,8 +23,20 @@ const Register = ({ setAuth }) => {
 
       const parseRes = await response.json();
 
-      localStorage.setItem("token", parseRes.token);
-      setAuth(true);
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        setAuth(true);
+      } else {
+        toast.error("Could not retrieve character", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,33 +51,35 @@ const Register = ({ setAuth }) => {
       <Navbar></Navbar>
       <div className="App-header">
         <h1>Register</h1>
-        <form onSubmit={submit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            className="form-control my-3"
-            onChange={(e) => onChange(e)}
-            value={email}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            className="form-control my-3"
-            onChange={(e) => onChange(e)}
-            value={password}
-          />
-          <input
-            type="text"
-            name="name"
-            placeholder="name"
-            className="form-control my-3"
-            onChange={(e) => onChange(e)}
-            value={name}
-          />
-          <button className="btn btn-dark btn-block">Submit</button>
-        </form>
+        <div className="card">
+          <form className="container" onSubmit={submit}>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              className="form-control my-3"
+              onChange={(e) => onChange(e)}
+              value={email}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              className="form-control my-3"
+              onChange={(e) => onChange(e)}
+              value={password}
+            />
+            <input
+              type="text"
+              name="name"
+              placeholder="name"
+              className="form-control my-3"
+              onChange={(e) => onChange(e)}
+              value={name}
+            />
+            <button className="btn btn-dark btn-block">Submit</button>
+          </form>
+        </div>
       </div>
     </Fragment>
   );

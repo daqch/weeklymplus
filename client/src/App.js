@@ -10,12 +10,31 @@ import Dashboard from "./components/Dasboard";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
+import { toast } from "react-toastify";
+
+toast.configure();
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
   };
+
+  async function isAuth() {
+    try {
+      const response = await fetch("http://localhost:5000/auth/is-verify", {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
+      const parseRes = await response.json();
+
+      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    isAuth();
+  });
 
   return (
     <Fragment>
@@ -57,7 +76,13 @@ function App() {
           <Route
             exact
             path="/"
-            render={(props) => <Home {...props} setAuth={setAuth} />}
+            render={(props) =>
+              !isAuthenticated ? (
+                <Home {...props} setAuth={setAuth} />
+              ) : (
+                <Redirect to="/dashboard"></Redirect>
+              )
+            }
           ></Route>
         </Switch>
       </Router>

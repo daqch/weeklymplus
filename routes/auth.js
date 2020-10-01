@@ -57,12 +57,21 @@ router.post("/login", validInfo, async (req, res) => {
       return res.status(403).json("Password is incorrect!");
     }
 
-    const jwtToken = jwtGenerator(user.rows[0].user_id);
+    const token = jwtGenerator(user.rows[0].user_id);
 
-    res.json({ jwtToken });
+    res.json({ token });
   } catch (error) {
     console.error(error.message);
     console.log("Server error!");
+  }
+});
+
+router.get("/is-verify", authorization, async (req, res) => {
+  try {
+    res.json(true);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
   }
 });
 
