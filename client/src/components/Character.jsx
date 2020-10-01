@@ -5,7 +5,7 @@ const Character = (props) => {
   const checkStatus = (e) => {
     e.preventDefault();
     fetch(
-      `https://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
+      `http://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
       .then((response) => {
         if (response.ok) return response.json();
@@ -24,7 +24,7 @@ const Character = (props) => {
 
   const init = () => {
     fetch(
-      `https://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
+      `http://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
       .then((response) => {
         if (response.ok) return response.json();

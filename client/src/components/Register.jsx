@@ -15,11 +15,14 @@ const Register = ({ setAuth }) => {
 
     try {
       const body = { email, password, name };
-      const response = await fetch("http://localhost:5000/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
 
       const parseRes = await response.json();
 

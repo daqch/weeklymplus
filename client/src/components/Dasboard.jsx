@@ -21,7 +21,7 @@ const Dashboard = ({ setAuth }) => {
     try {
       const body = chars[index];
       const response = await fetch(
-        "http://localhost:5000/dashboard/removeChar",
+        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/removeChar",
         {
           method: "POST",
           headers: {
@@ -57,14 +57,17 @@ const Dashboard = ({ setAuth }) => {
     e.preventDefault();
     try {
       const body = { char_name, realm };
-      const response = await fetch("http://localhost:5000/dashboard/addChar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: localStorage.token,
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/addChar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: localStorage.token,
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       const parseRes = await response.json();
       console.log(parseRes);
@@ -89,10 +92,13 @@ const Dashboard = ({ setAuth }) => {
 
   async function getName() {
     try {
-      const response = await fetch("http://localhost:5000/dashboard/", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const response = await fetch(
+        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/",
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
       const parseRes = await response.json();
 
       setName(parseRes.user_name);
@@ -108,13 +114,16 @@ const Dashboard = ({ setAuth }) => {
 
   async function getChars() {
     try {
-      const response = await fetch("http://localhost:5000/dashboard/chars", {
-        headers: {
-          token: localStorage.token,
-          char_name: char_name,
-          realm: realm,
-        },
-      });
+      const response = await fetch(
+        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/chars",
+        {
+          headers: {
+            token: localStorage.token,
+            char_name: char_name,
+            realm: realm,
+          },
+        }
+      );
       const parseRes = await response.json();
 
       if (parseRes.rows) {
