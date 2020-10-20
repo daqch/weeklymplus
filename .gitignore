@@ -3,6 +3,8 @@
 # dependencies
 node_modules/
 /node_modules
+/amplify
+amplify/
 /.pnp
 .pnp.js
 
@@ -24,3 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 node_modules/
 client/node_modules
+db.js
+client/amplify
+
