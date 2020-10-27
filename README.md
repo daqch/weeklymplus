@@ -3,13 +3,13 @@
 ### Running
 For react client app
 ```
+cd client
 npm start
 ```
 For Express server
 
 ```
 node index.js
-
 ```
 By default client will be listening port 3000 and server 5000
 ### Motivation
