@@ -1,48 +1,44 @@
 import React, { useState, useEffect } from "react";
+import blank_avatar from "../assets/Orcfemale_nopic.jpg";
+import { toast } from "react-toastify";
 
 const Character = (props) => {
   const [status, setStatus] = useState("unknown");
-  const checkStatus = (e) => {
-    e.preventDefault();
+  const [imgsrc, setSrc] = useState("");
+  const checkStatus = () => {
     fetch(
-      `http://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
+      `https://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
     )
       .then((response) => {
         if (response.ok) return response.json();
         else {
-          setStatus("negative");
+          setStatus("unknown");
+          toast.error("Character not found 😐", {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       })
       .then((json) => {
-        json
-          ? json["mythic_plus_weekly_highest_level_runs"].length === 0
+        console.log(json);
+        if (json) {
+          json["mythic_plus_weekly_highest_level_runs"].length === 0
             ? setStatus("negative")
-            : setStatus("positive")
-          : setStatus("negative");
-      });
-  };
-
-  const init = () => {
-    fetch(
-      `http://raider.io/api/v1/characters/profile?region=us&realm=${props.realm}&name=${props.name}&fields=mythic_plus_weekly_highest_level_runs`
-    )
-      .then((response) => {
-        if (response.ok) return response.json();
-        else {
-          setStatus("negative");
+            : setStatus("positive");
+          setSrc(json["thumbnail_url"]);
+        } else {
+          setStatus("unknown");
         }
-      })
-      .then((json) => {
-        json
-          ? json["mythic_plus_weekly_highest_level_runs"].length === 0
-            ? setStatus("negative")
-            : setStatus("positive")
-          : setStatus("negative");
       });
   };
 
   useEffect(() => {
-    init();
+    checkStatus();
   }, []);
 
   return (
@@ -50,13 +46,49 @@ const Character = (props) => {
       style={{
         backgroundColor: "inherit",
         margin: "1em",
-        display: "flex",
         width: "40%",
         marginBottom: "2em",
+        height: "10em",
+        position: "relative",
       }}
-      className="card char"
+      className="card char col-lg-3 col-sm-12 col-md-5"
     >
-      <div style={{ textAlign: "center" }}>
+      <img
+        style={{
+          marginLeft: "0",
+          height: "100%",
+          width: "50%",
+          display: "inline-block",
+        }}
+        alt="character-avatar"
+        src={
+          imgsrc && (status === "positive" || status === "negative")
+            ? imgsrc
+            : blank_avatar
+        }
+      ></img>
+      <div
+        onClick={(e) => props.handleRemove(e, props.index)}
+        style={{
+          right: "0.125em",
+          top: "0",
+          position: "absolute",
+          cursor: "pointer",
+          alt: "delete",
+        }}
+      >
+        <span role="img" aria-label="delete">
+          🗑️
+        </span>
+      </div>
+      <div
+        style={{
+          textAlign: "center",
+          padding: "1em",
+          width: "50%",
+          display: "inline-block",
+        }}
+      >
         <p
           style={{
             textTransform: "uppercase",
@@ -64,67 +96,24 @@ const Character = (props) => {
             fontWeight: "700",
           }}
         >
-          {props.name}
-          {status === "unknown" ? (
-            <span
-              style={{
-                height: "25px",
-                width: "25px",
-
-                borderRadius: "50%",
-                display: "inline-block",
-                marginLeft: "0.125em",
-              }}
-            >
-              ?
-            </span>
-          ) : status === "negative" ? (
-            <span
-              style={{
-                height: "25px",
-                width: "25px",
-
-                borderRadius: "50%",
-                display: "inline-block",
-                marginLeft: "0.125em",
-                backgroundColor: "red",
-              }}
-            >
-              X
-            </span>
-          ) : (
-            <span
-              style={{
-                height: "25px",
-                width: "25px",
-
-                borderRadius: "50%",
-                display: "inline-block",
-                marginLeft: "0.125em",
-                backgroundColor: "green",
-              }}
-            >
-              &#10003;
-            </span>
-          )}
+          {props.name ? props.name : "?"}
         </p>
-        <p style={{ textTransform: "capitalize" }}>Realm : {props.realm}</p>
+        <p style={{ textTransform: "capitalize", marginBottom: "0.5em" }}>
+          Realm : {props.realm}
+        </p>
+        {status === "unknown" ? (
+          <p style={{ color: "grey" }}>N/A</p>
+        ) : status === "positive" ? (
+          <p style={{ color: "green" }}>
+            Completed
+            <span role="img" aria-label="check">
+              ✔️
+            </span>{" "}
+          </p>
+        ) : (
+          <p style={{ color: "red" }}>Not completed</p>
+        )}{" "}
       </div>
-
-      <button
-        style={{ width: " 70%", alignSelf: "center" }}
-        className="btn btn-md btn-light"
-        onClick={(e) => checkStatus(e)}
-      >
-        Check
-      </button>
-      <button
-        style={{ width: " 70%", alignSelf: "center" }}
-        className="btn  btn-danger"
-        onClick={(e) => props.handleRemove(e, props.index)}
-      >
-        Remove
-      </button>
     </div>
   );
 };

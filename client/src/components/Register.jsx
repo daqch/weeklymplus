@@ -16,7 +16,7 @@ const Register = ({ setAuth }) => {
     try {
       const body = { email, password, name };
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/auth/register",
+        "https://friendly-whistler-38809.herokuapp.com/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ const Register = ({ setAuth }) => {
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
       } else {
-        toast.error("Could not retrieve character", {
+        toast.error("Account already exists", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -41,7 +41,15 @@ const Register = ({ setAuth }) => {
         });
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Account already exists", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 

@@ -21,7 +21,7 @@ const Dashboard = ({ setAuth }) => {
     try {
       const body = chars[index];
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/removeChar",
+        "https://friendly-whistler-38809.herokuapp.com/dashboard/removeChar",
         {
           method: "POST",
           headers: {
@@ -58,7 +58,7 @@ const Dashboard = ({ setAuth }) => {
     try {
       const body = { char_name, realm };
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/addChar",
+        "https://friendly-whistler-38809.herokuapp.com/dashboard/addChar",
         {
           method: "POST",
           headers: {
@@ -93,7 +93,7 @@ const Dashboard = ({ setAuth }) => {
   async function getName() {
     try {
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/",
+        "https://friendly-whistler-38809.herokuapp.com/dashboard/",
         {
           method: "GET",
           headers: { token: localStorage.token },
@@ -115,7 +115,7 @@ const Dashboard = ({ setAuth }) => {
   async function getChars() {
     try {
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/dashboard/chars",
+        "https://friendly-whistler-38809.herokuapp.com/dashboard/chars",
         {
           headers: {
             token: localStorage.token,
@@ -153,7 +153,7 @@ const Dashboard = ({ setAuth }) => {
         className="container"
         style={{ marginTop: "7vh", minHeight: "93vh" }}
       >
-        <h1 style={{}}>Hello {name}</h1>
+        <h1 style={{}}>Hello {name} 👋</h1>
         <div style={{ display: "flex" }}>
           <h4
             style={{
@@ -244,10 +244,11 @@ const Dashboard = ({ setAuth }) => {
         ></hr>
 
         <div
+          className="row"
           style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-around",
+            textAlign: "center",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {chars.map((char, index) => {

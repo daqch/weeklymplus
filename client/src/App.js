@@ -23,7 +23,7 @@ function App() {
   async function isAuth() {
     try {
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/auth/is-verify",
+        "https://friendly-whistler-38809.herokuapp.com/auth/is-verify",
         {
           method: "GET",
           headers: { token: localStorage.token },
@@ -32,7 +32,9 @@ function App() {
       const parseRes = await response.json();
 
       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log("some error")
+    }
   }
 
   useEffect(() => {
