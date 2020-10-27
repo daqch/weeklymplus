@@ -16,7 +16,7 @@ const Login = ({ setAuth }) => {
     try {
       const body = { email, password };
       const response = await fetch(
-        "http://ec2-54-172-121-91.compute-1.amazonaws.com:5000/auth/login",
+        "https://friendly-whistler-38809.herokuapp.com/auth/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -29,7 +29,7 @@ const Login = ({ setAuth }) => {
         localStorage.setItem("token", parseRes.token);
         setAuth(true);
       } else {
-        toast.error("Could not retrieve character", {
+        toast.error("Invalid credentials", {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
